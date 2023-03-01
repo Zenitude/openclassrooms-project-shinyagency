@@ -10,6 +10,7 @@ const CardWrapper = styled.div`
     justify-content: space-around;
     align-items: center;
     padding: 15px;
+    margin: 0 auto;
     background-color: ${colors.backgroundLight};
     border-radius: 30px;
     width: 350px;

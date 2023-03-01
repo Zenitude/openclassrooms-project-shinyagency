@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import colors from '../utils/style/colors';
+import { StyledLink } from '../utils/style/Atom';
 // import lightLogo from '../assets/light-logo.png';
 import darkLogo from '../assets/dark-logo.png';
 
@@ -18,18 +17,6 @@ const HeaderContainer = styled.header`
   img {
     width: 150px;
   }
-`;
-
-const StyledLink = styled(Link)`
-    padding: 15px;
-    color: ${colors.secondary};
-    text-decoration: none;
-    font-size: 18px;
-    ${props => props.$isFullLink && 
-      `color: ${colors.white};
-      border-radius: 30px;
-      background-color: ${colors.primary};`
-    }
 `;
 
 export default function Header() {

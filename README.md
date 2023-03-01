@@ -2,6 +2,12 @@
 
 * This is the course’s red thread project : [Créez une application React complète](https://openclassrooms.com/fr/courses/7150606-creez-une-application-react-complete)
 
+## Launch API REST
+
+This application contains an API REST made by Openclassrooms, to use this api : 
+* place yourself in the folder api : `cd api`
+* launch the api : `npm start`
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

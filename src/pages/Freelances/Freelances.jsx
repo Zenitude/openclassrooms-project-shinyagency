@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from '../../components/Card';
 import styled from 'styled-components';
+import colors from '../../utils/style/colors';
+import { Loader } from '../../utils/style/Atom';
 
 const FreelancesContainer = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-
-    h1, p {
-        text-align: center;
-        margin: 20px 0;
-    }
 `;
+
+const Title = styled.h1`
+  font-size: 30px;
+  color: black;
+  text-align: center;
+  padding-bottom: 30px;
+`
+
+const Subtitle = styled.h2`
+  font-size: 20px;
+  color: ${colors.secondary};
+  font-weight: 300;
+  text-align: center;
+  padding-bottom: 30px;
+`
 
 const CardContainer = styled.section`
     width: 60%;
@@ -23,42 +35,49 @@ const CardContainer = styled.section`
     grid-template-columns: repeat(2, 1fr);
 `;
 
-const freelanceProfiles = [
-    {
-        name: 'Jane Doe',
-        jobTitle: 'UX Designer'
-    },
-    {
-        name: 'Alexandra Dupont',
-        jobTitle: 'Developpeuse Front-End'
-    },
-    {
-        name: 'Jeanne Biche',
-        jobTitle: 'Devops'
-    },
-    {
-        name: 'Lauren Ipsum',
-        jobTitle: 'UX Designer'
-    }
-]
-
 export default function Freelances() {
+
+    const [ dataFreelances, setDataFreelances ] = useState([]);
+    const [ isDataLoading, setIsDataLoading ] = useState(false);
+    const [ error, setError ] = useState(false);
+
+    useEffect(() => {
+        (async function fetchFreelances() {
+            setIsDataLoading(true);
+            try {
+                const response = await fetch('http://localhost:8000/freelances');
+                const { freelancersList } = await response.json();
+                setDataFreelances(freelancersList);
+            } catch(error) {
+                console.log('error : ' + error);
+                setError(true);
+            } finally {
+                setIsDataLoading(false);
+            }
+        })();
+    }, []);
 
     return (
         <FreelancesContainer>
-            <h1>Trouvez votre partenaire</h1>
-            <p>Chez Shiny nous réunissons les meilleurs profils pour vous.</p>
-            <CardContainer>
+            <Title>Trouvez votre partenaire</Title>
+            <Subtitle>Chez Shiny nous réunissons les meilleurs profils pour vous.</Subtitle>
+            { error && (<p>Il y a un problème</p>) }
             {
-                freelanceProfiles.map((profile, index) => (
-                    <Card 
-                        key={index}
-                        label={profile.jobTitle}
-                        title={profile.name}
-                    />
-                ))
-            }
-            </CardContainer>
+                isDataLoading 
+                ? ( <Loader /> )
+                : ( 
+                    <CardContainer> {
+                        dataFreelances?.map((freelance, index) => (
+                            <Card 
+                                key={`${index}-${freelance.id}`}
+                                label={freelance.job}
+                                title={freelance.name}
+                                picture={freelance.picture}
+                            />
+                        ))  
+                    } </CardContainer>
+                )
+            } 
         </FreelancesContainer>
     )
 }
