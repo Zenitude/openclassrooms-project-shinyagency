@@ -4,7 +4,7 @@ import DefaultPicture from '../assets/profile.png';
 import styled from 'styled-components';
 import colors from '../utils/style/colors';
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.article`
     display: flex;
     flex-direction: column;
     justify-content: space-around;

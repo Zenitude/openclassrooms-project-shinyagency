@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { StyledLink } from '../utils/style/Atom';
-// import lightLogo from '../assets/light-logo.png';
+import { ThemeContext } from '../utils/Context';
+import lightLogo from '../assets/light-logo.png';
 import darkLogo from '../assets/dark-logo.png';
 
 const HeaderContainer = styled.header`
@@ -9,9 +10,10 @@ const HeaderContainer = styled.header`
   height: 70px;
   display: flex;
   align-items: center;
-
+  
   nav {
     margin-left: auto;
+    padding-right: 15px;
   }
 
   img {
@@ -20,10 +22,11 @@ const HeaderContainer = styled.header`
 `;
 
 export default function Header() {
+  const { theme } = useContext(ThemeContext);
   return (
     <HeaderContainer>
         <StyledLink to={`/`}>
-          <img src={darkLogo} alt="Logo Shiny Agency" />
+          <img src={theme === 'light' ? darkLogo : lightLogo} alt="Logo Shiny Agency" />
         </StyledLink>
         <nav>
           <StyledLink to={`/`}>Accueil</StyledLink>

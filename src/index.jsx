@@ -1,33 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { createGlobalStyle } from 'styled-components';
+import { ThemeProvider, SurveyProvider } from './utils/Context';
+import GlobalStyle from './utils/style/GlobalStyle';
 import Header from './components/Header';
 import Router from './components/Router';
+import Footer from './components/Footer';
 // import reportWebVitals from './reportWebVitals';
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    font-family: 'Trebuchet MS', Helvetica, sans-serif;
-  }
-
-  main{
-    padding: 20px;
-  }
-`;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <GlobalStyle />
-      <Header />
 
-      <main>
-        <Router />
-      </main>
+      <ThemeProvider>
 
-      <footer></footer>
+        <SurveyProvider>
+          
+          <GlobalStyle />
+
+          <Header />
+
+          <main>
+            
+              <Router />
+            
+          </main>
+
+          <Footer />
+
+        </SurveyProvider>
+
+      </ThemeProvider>
+
     </BrowserRouter>
   </React.StrictMode>
 );
