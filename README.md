@@ -5,7 +5,7 @@
 ## API REST
 
 This application contains an API REST made by Openclassrooms, to use this api : 
-* get API : `git clone` [https://github.com/OpenClassrooms-Student-Center/7150606-API-React-intermediaire(https://github.com/OpenClassrooms-Student-Center/7150606-API-React-intermediaire) `api`
+* get API : `git clone` [https://github.com/OpenClassrooms-Student-Center/7150606-API-React-intermediaire](https://github.com/OpenClassrooms-Student-Center/7150606-API-React-intermediaire) `api`
 * place yourself in the folder api : `cd api`
 * launch the api : `npm start`
 
