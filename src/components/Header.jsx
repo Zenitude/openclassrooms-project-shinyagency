@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { StyledLink } from '../utils/style/Atom';
-import { ThemeContext } from '../utils/Context';
 import lightLogo from '../assets/light-logo.png';
 import darkLogo from '../assets/dark-logo.png';
+import { useTheme } from '../utils/hooks/hooks';
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -22,17 +21,17 @@ const HeaderContainer = styled.header`
 `;
 
 export default function Header() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
+
   return (
-    <HeaderContainer>
-        <StyledLink to={`/`}>
+    <HeaderContainer >
+        <StyledLink theme={theme} to={`/`}>
           <img src={theme === 'light' ? darkLogo : lightLogo} alt="Logo Shiny Agency" />
         </StyledLink>
         <nav>
-          <StyledLink to={`/`}>Accueil</StyledLink>
-          <StyledLink to={`/survey/1`} $isFullLink>Questionnaire</StyledLink>
-          <StyledLink to={`/freelances`}>Profils</StyledLink>
-          <StyledLink to={`/tests`} $isFullLink>Faire le test</StyledLink>
+          <StyledLink theme={theme} to={`/`}>Accueil</StyledLink>
+          <StyledLink theme={theme} to={`/freelances`}>Profils</StyledLink>
+          <StyledLink theme={theme} to={`/survey/1`} $isFullLink>Faire le test</StyledLink>
         </nav>
     </HeaderContainer>
   )

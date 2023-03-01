@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import Card from '../../components/Card';
 import styled from 'styled-components';
 import colors from '../../utils/style/colors';
 import { Loader } from '../../utils/style/Atom';
+import { useFetch, useTheme } from '../../utils/hooks/hooks';
 
 const FreelancesContainer = styled.div`
     width: 100%;
@@ -13,18 +13,18 @@ const FreelancesContainer = styled.div`
 
 const Title = styled.h1`
   font-size: 30px;
-  color: black;
+  color: ${({theme}) => theme === 'light' ? colors.black : colors.white };
   text-align: center;
   padding-bottom: 30px;
-`
+`;
 
 const Subtitle = styled.h2`
   font-size: 20px;
-  color: ${colors.secondary};
+  color: ${({theme}) => theme === 'light' ? colors.secondary : colors.white };
   font-weight: 300;
   text-align: center;
   padding-bottom: 30px;
-`
+`;
 
 const CardContainer = styled.section`
     width: 60%;
@@ -37,37 +37,21 @@ const CardContainer = styled.section`
 
 export default function Freelances() {
 
-    const [ dataFreelances, setDataFreelances ] = useState([]);
-    const [ isDataLoading, setIsDataLoading ] = useState(false);
-    const [ error, setError ] = useState(false);
-
-    useEffect(() => {
-        (async function fetchFreelances() {
-            setIsDataLoading(true);
-            try {
-                const response = await fetch('http://localhost:8000/freelances');
-                const { freelancersList } = await response.json();
-                setDataFreelances(freelancersList);
-            } catch(error) {
-                console.log('error : ' + error);
-                setError(true);
-            } finally {
-                setIsDataLoading(false);
-            }
-        })();
-    }, []);
+    const { data, isLoading, error } = useFetch('http://localhost:8000/freelances');
+    const { freelancersList } = data;
+    const { theme } = useTheme();
 
     return (
         <FreelancesContainer>
-            <Title>Trouvez votre partenaire</Title>
-            <Subtitle>Chez Shiny nous réunissons les meilleurs profils pour vous.</Subtitle>
+            <Title theme={theme}>Trouvez votre partenaire</Title>
+            <Subtitle theme={theme}>Chez Shiny nous réunissons les meilleurs profils pour vous.</Subtitle>
             { error && (<p>Il y a un problème</p>) }
             {
-                isDataLoading 
+                isLoading 
                 ? ( <Loader /> )
                 : ( 
                     <CardContainer> {
-                        dataFreelances?.map((freelance, index) => (
+                        freelancersList?.map((freelance, index) => (
                             <Card 
                                 key={`${index}-${freelance.id}`}
                                 label={freelance.job}

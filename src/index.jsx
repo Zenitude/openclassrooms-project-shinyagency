@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider, SurveyProvider } from './utils/Context';
+import { ThemeProvider, SurveyProvider } from './utils/context/Context';
 import GlobalStyle from './utils/style/GlobalStyle';
 import Header from './components/Header';
 import Router from './components/Router';
@@ -16,7 +16,7 @@ root.render(
       <ThemeProvider>
 
         <SurveyProvider>
-          
+
           <GlobalStyle />
 
           <Header />
