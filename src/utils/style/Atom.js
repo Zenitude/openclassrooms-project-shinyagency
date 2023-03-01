@@ -19,6 +19,7 @@ export const Loader = styled.div`
   animation: ${rotate} 1s infinite linear;
   height: 0;
   width: 0;
+  margin: 0 auto;
 `;
 
 export const StyledLink = styled(Link)`
