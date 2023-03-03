@@ -3,6 +3,7 @@ import { useFetch } from '../../utils/hooks/hooks';
 import { SurveyContext} from '../../utils/context/Context';
 import { Loader, StyledLink, ResultsContainer, ResultsTitle, JobTitle, DescriptionWrapper, JobDescription } from '../../utils/style/Atom';
 import { useTheme } from '../../utils/hooks/hooks';
+import EmptyList from '../../components/EmptyList/EmptyList';
 
 export function formatJobList(title, listLength, index) {
   if(index === listLength -1) {
@@ -27,7 +28,7 @@ export default function Results() {
     const { answers } = useContext(SurveyContext);
     const queryParams = formatQueryParams(answers);
     const { data, isLoading, error } = useFetch(`http://localhost:8000/results?${queryParams}`);
-    const { resultsData } = data;   
+    const { resultsData } = data; 
 
     return (
         <div>
@@ -36,8 +37,10 @@ export default function Results() {
             {
                 isLoading 
                 ? (<Loader data-testid="loader" />)
-                : ( 
-                    <ResultsContainer theme={theme}>
+                : (
+                    resultsData.length === 0
+                    ? (<EmptyList />)
+                    : (<ResultsContainer theme={theme}>
                         <ResultsTitle theme={theme}>
                             Les compétences dont vous avez besoin : {
                                 resultsData && resultsData.map((result, index) => (
@@ -68,7 +71,7 @@ export default function Results() {
 
                             </JobDescription>))
                         } </DescriptionWrapper>
-                  </ResultsContainer>
+                  </ResultsContainer>)
 
                 )
             }

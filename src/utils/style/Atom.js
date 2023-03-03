@@ -57,10 +57,10 @@ export const HeaderContainer = styled.header`
 
 export const FooterContainer = styled.footer`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 60px;
+    padding: 60px 0;
 `;
  
 export const NightModeButton = styled.button`
@@ -68,6 +68,7 @@ export const NightModeButton = styled.button`
     border: none;
     cursor: pointer;
     color: ${colors.secondary};
+    padding-top: 30px;
 `;
 
 // HOME
@@ -281,4 +282,51 @@ margin: 0 auto;
 text-align: center;
 padding: 32px;
 background-color: ${({theme}) => theme === 'light' ? colors.backgroundLight : colors.backgroundDark }
+`;
+
+// EmailInput
+
+export const InputWrapper = styled.div`
+  color: ${({ theme }) => (theme === 'light' ? colors.dark : 'white')};
+  display: flex;
+  flex-direction: column;
+`;
+
+export const StyledLabel = styled.label`
+  color: ${({ theme }) => (theme === 'light' ? colors.dark : 'white')};
+`;
+
+export const StyledInput = styled.input`
+  border: none;
+  color: ${({ theme }) => (theme === 'light' ? colors.dark : 'white')};
+  background-color: transparent;
+  border-bottom: 1px solid
+    ${({ theme }) => (theme === 'light' ? colors.dark : 'white')};
+  margin-top: 5px;
+  margin-bottom: 15px;
+`;
+
+// EmptyList
+
+export const EmptyListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 60px 90px;
+  padding: 30px;
+  background-color: ${({ theme }) =>
+    theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
+  
+  svg {
+    margin: 30px 0;
+  }
+`;
+
+export const EmptyListTitle = styled.h1`
+  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+`;
+
+export const EmptyListSubTitle = styled.h3`
+  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+  font-weight: normal;
 `;
