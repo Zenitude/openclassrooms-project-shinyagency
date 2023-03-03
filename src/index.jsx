@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, SurveyProvider } from './utils/context/Context';
 import GlobalStyle from './utils/style/GlobalStyle';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Router from './components/Router';
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer';
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

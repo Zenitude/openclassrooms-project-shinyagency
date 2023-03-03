@@ -1,68 +1,8 @@
 import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import colors from '../../utils/style/colors';
-import { Loader } from '../../utils/style/Atom';
+import { Loader, SurveyContainer, QuestionTitle, QuestionContent, ReplyWrapper, ReplyBox, LinkWrapper } from '../../utils/style/Atom';
 import { SurveyContext } from '../../utils/context/Context';
 import { useFetch, useTheme } from '../../utils/hooks/hooks';
-
-const SurveyContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const QuestionTitle = styled.h2`
-  text-decoration: underline;
-  text-decoration-color: ${({ theme }) =>
-  theme === 'light' ? colors.primary : colors.backgroundLight};
-  color : ${({ theme }) =>
-    theme === 'light' ? colors.primary : colors.backgroundLight};
-`;
-
-const QuestionContent = styled.span`
-  margin: 30px;
-  color : ${({ theme }) =>
-    theme === 'light' ? colors.primary : colors.backgroundLight};
-`;
-
-const LinkWrapper = styled.div`
-  padding-top: 30px;
-  & a {
-    color: ${({ theme }) => theme === 'light' ? colors.black : colors.white };
-  }
-  & a:first-of-type {
-    margin-right: 20px;
-  }
-`;
-
-const ReplyBox = styled.button`
-  border: none;
-  height: 100px;
-  width: 300px;
-  color : ${({ theme }) =>
-    theme === 'light' ? colors.primary : colors.backgroundLight};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) =>
-  theme === 'light' ? colors.nacre : colors.backgroundDark };;
-  border-radius: 30px;
-  cursor: pointer;
-  box-shadow: ${({ isSelected, theme}) =>
-    isSelected ? `0px 0px 0px 2px ${theme === 'light' ? colors.primary : colors.secondary} inset` : 'none'};
-  &:first-child {
-    margin-right: 15px;
-  }
-  &:last-of-type {
-    margin-left: 15px;
-  }
-`;
-
-const ReplyWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
 
 export default function Survey() {
 
@@ -82,7 +22,7 @@ export default function Survey() {
             { error && (<p>Il y a un problème</p>) }
             {isLoading 
                 ? ( <Loader /> ) 
-                : ( <QuestionContent>{surveyData && surveyData[questionNumber]}</QuestionContent> )
+                : ( <QuestionContent theme={theme}>{surveyData && surveyData[questionNumber]}</QuestionContent> )
             }
             {answers &&
               (

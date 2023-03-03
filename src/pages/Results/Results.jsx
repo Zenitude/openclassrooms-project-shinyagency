@@ -1,52 +1,25 @@
 import React, { useContext } from 'react';
 import { useFetch } from '../../utils/hooks/hooks';
 import { SurveyContext} from '../../utils/context/Context';
-import { Loader, StyledLink } from '../../utils/style/Atom';
-import styled from 'styled-components';
-import colors from '../../utils/style/colors';
+import { Loader, StyledLink, ResultsContainer, ResultsTitle, JobTitle, DescriptionWrapper, JobDescription } from '../../utils/style/Atom';
 import { useTheme } from '../../utils/hooks/hooks';
 
-const ResultsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 60px 90px;
-  padding: 30px;
-  background-color: ${({ theme }) =>
-    theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
-`;
-
-const ResultsTitle = styled.h2`
-  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
-  font-weight: bold;
-  font-size: 28px;
-  max-width: 60%;
-  text-align: center;
-  & > span {
-    padding-left: 10px;
+export function formatJobList(title, listLength, index) {
+  if(index === listLength -1) {
+    return title;
   }
-`;
+  return `${title},`;
+}
 
-const DescriptionWrapper = styled.div`
-  padding: 60px;
-`;
+export function formatQueryParams(answers) {
+  const answersNumbers = Object.keys(answers);
 
-const JobTitle = styled.span`
-  color: ${({ theme }) =>
-    theme === 'light' ? colors.primary : colors.backgroundLight};
-  text-transform: capitalize;
-`;
-
-const JobDescription = styled.div`
-  font-size: 18px;
-  & > p {
-    color: ${({ theme }) => (theme === 'light' ? colors.secondary : '#ffffff')};
-    margin-block-start: 5px;
-  }
-  & > span {
-    font-size: 20px;
-  }
-`;
+  return answersNumbers.reduce((previousParams, answersNumber, index) => {
+      const isFirstAnswer = index === 0;
+      const separator = isFirstAnswer ? '' : '&';
+      return `${previousParams}${separator}a${answersNumber}=${answers[answersNumber]}`
+  }, '');
+}
 
 export default function Results() {
 
@@ -54,17 +27,7 @@ export default function Results() {
     const { answers } = useContext(SurveyContext);
     const queryParams = formatQueryParams(answers);
     const { data, isLoading, error } = useFetch(`http://localhost:8000/results?${queryParams}`);
-    const { resultsData } = data;
-
-    function formatQueryParams(answers) {
-        const answersNumbers = Object.keys(answers);
-    
-        return answersNumbers.reduce((previousParams, answersNumber, index) => {
-            const isFirstAnswer = index === 0;
-            const separator = isFirstAnswer ? '' : '&';
-            return `${previousParams}${separator}a${answersNumber}=${answers[answersNumber]}`
-        }, '');
-    }
+    const { resultsData } = data;   
 
     return (
         <div>
@@ -72,7 +35,7 @@ export default function Results() {
             {error && (<p>Il y a un problème</p>)}
             {
                 isLoading 
-                ? (<Loader />)
+                ? (<Loader data-testid="loader" />)
                 : ( 
                     <ResultsContainer theme={theme}>
                         <ResultsTitle theme={theme}>
@@ -82,8 +45,7 @@ export default function Results() {
                                         key={`result-title-${index}-${result.title}`}
                                         theme={theme}
                                     >
-                                        {result.title}
-                                        {index === resultsData.length - 1 ? '' : ','}
+                                        { formatJobList(result.title, resultsData.length, index) }
                                     </JobTitle>
                                 ))  
                             }
@@ -101,8 +63,8 @@ export default function Results() {
                                 key={`result-detail-${index}-${result.title}`}
                             >
                             
-                                <JobTitle theme={theme}>{result.title}</JobTitle>
-                                <p>{result.description}</p>
+                                <JobTitle theme={theme} data-testid="job-title">{result.title}</JobTitle>
+                                <p data-testid="job-description">{result.description}</p>
 
                             </JobDescription>))
                         } </DescriptionWrapper>

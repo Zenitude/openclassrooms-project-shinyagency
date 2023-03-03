@@ -1,24 +1,7 @@
-import styled from 'styled-components';
-import { StyledLink } from '../utils/style/Atom';
-import lightLogo from '../assets/light-logo.png';
-import darkLogo from '../assets/dark-logo.png';
-import { useTheme } from '../utils/hooks/hooks';
-
-const HeaderContainer = styled.header`
-  width: 100%;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  
-  nav {
-    margin-left: auto;
-    padding-right: 15px;
-  }
-
-  img {
-    width: 150px;
-  }
-`;
+import { StyledLink, HeaderContainer } from '../../utils/style/Atom';
+import lightLogo from '../../assets/light-logo.png';
+import darkLogo from '../../assets/dark-logo.png';
+import { useTheme } from '../../utils/hooks/hooks';
 
 export default function Header() {
   const { theme } = useTheme();

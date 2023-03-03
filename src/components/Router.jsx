@@ -7,10 +7,9 @@ import Survey from '../pages/Survey/Survey';
 import Admin from '../pages/Admin/Admin';
 import Results from '../pages/Results/Results';
 import Freelances from '../pages/Freelances/Freelances';
-import Tests from '../pages/Tests/Test';
 
-import Dashboard from './Dashboard';
-import Settings from './Settings';
+import Dashboard from './Dashboard/Dashboard';
+import Settings from './Settings/Settings';
 
 export default function Router() {
   return (
@@ -22,8 +21,6 @@ export default function Router() {
       <Route path="/results" element={<Results />} />
       
       <Route path="/freelances" element={<Freelances />} />
-      
-      <Route path="/tests" element={<Tests />} />
 
       <Route path="/admin" element={<Admin />} >
         <Route path={`dashboard`} element={<Dashboard />} />
